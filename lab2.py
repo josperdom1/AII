@@ -146,7 +146,7 @@ def show_brand():
     b.pack(side="right")
 
 
-def search_deals():  # TODO
+def search_deals():
     new_window = Toplevel()
     new_window.title("Ofertas")
     new_window.geometry("800x600")
