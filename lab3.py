@@ -1,8 +1,8 @@
 __author__ = 'Andrés Perez Domínguez'
-
+import tkinter as tk
 import sqlite3
 import urllib.request
-from tkinter import *
+import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
 from tkinter import messagebox
@@ -17,7 +17,8 @@ for div in divs:
     title = div.find('h2').find('a').string
     link = div.find('h2').find('a').get('href')
     author = div.find('div', class_='news-submitted').find('a').get('href').replace('/user/','')
-    print(link)
+    date = datetime.fromtimestamp(int(div.find_all('span')[-1].get('data-ts')))
+    print(date)
 
 
 

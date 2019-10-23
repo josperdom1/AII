@@ -3,7 +3,6 @@ __author__ = 'Andrés Perez Domínguez'
 import sqlite3
 import urllib.request
 from tkinter import *
-from tkinter import ttk
 from datetime import datetime
 from tkinter import messagebox
 from bs4 import BeautifulSoup
