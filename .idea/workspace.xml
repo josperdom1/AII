@@ -2,10 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc400765-4289-4937-baf1-e084b2f90392" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Whoosh1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exam.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/news.db" beforeDir="false" afterPath="$PROJECT_DIR$/news.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSoup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enunciados/Correos/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Enunciados/Whoosh/Correos/1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enunciados/Correos/2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Enunciados/Whoosh/Correos/2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enunciados/Correos/3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Enunciados/Whoosh/Correos/3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enunciados/Correos/4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Enunciados/Whoosh/Correos/4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enunciados/Correos/5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Enunciados/Whoosh/Correos/5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enunciados/Correos/6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Enunciados/Whoosh/Correos/6.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enunciados/Ejercicio Whoosh.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Enunciados/Whoosh/Ejercicio Whoosh.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HTMLParse.py" beforeDir="false" afterPath="$PROJECT_DIR$/BSoup/HTMLParse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/Whoosh_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicios1.py" beforeDir="false" afterPath="$PROJECT_DIR$/BSoup/ejercicios_inicio.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fichero" beforeDir="false" afterPath="$PROJECT_DIR$/BSoup/fichero" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/films.db" beforeDir="false" afterPath="$PROJECT_DIR$/BSoup/films.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab1.py" beforeDir="false" afterPath="$PROJECT_DIR$/BSoup/BeautifulSoup_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2.py" beforeDir="false" afterPath="$PROJECT_DIR$/BSoup/BeautifulSoup_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab3.py" beforeDir="false" afterPath="$PROJECT_DIR$/BSoup/BeautifulSoup_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practica1.py" beforeDir="false" afterPath="$PROJECT_DIR$/BSoup/RegExp_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practicaBSA_examen.py" beforeDir="false" afterPath="$PROJECT_DIR$/BSoup/BSA_examenA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pruebalista.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pruebaprueba.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tkTEST.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wuolah-free-init.py" beforeDir="false" afterPath="$PROJECT_DIR$/BSoup/BeautifulSoup_jornadas.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,12 +50,15 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\andre\PycharmProjects\prueba" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\andre\PycharmProjects\prueba\venv" />
       <recent name="C:\Users\andre\PycharmProjects\prueba\venv\Scripts" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Enunciados/Whoosh" />
+      <recent name="$PROJECT_DIR$/BSoup" />
+      <recent name="$PROJECT_DIR$/Whoosh" />
+      <recent name="C:\Users\andre\PycharmProjects\prueba" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -63,7 +86,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Whoosh1.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Whoosh/Whoosh_1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -105,7 +128,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lab1.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/BSoup/BeautifulSoup_1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -126,7 +149,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lab2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/BSoup/BeautifulSoup_2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -147,7 +170,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lab3.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/BSoup/BeautifulSoup_3.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -168,7 +191,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practicaBSA_examen.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/BSoup/BSA_examenA.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
