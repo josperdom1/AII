@@ -3,12 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="fc400765-4289-4937-baf1-e084b2f90392" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSoup/BeautifulSoup_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/BSoup/BeautifulSoup_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSoup/ulabox.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Enunciados/Whoosh/Ejercicio Whoosh.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Whoosh/p1/Index/MAIN_j9vgl51rvfqvcvlp.seg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Whoosh/p1/Index/_MAIN_1.toc" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/p1/Index/_MAIN_1.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Whoosh/p1/Whoosh_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/p1/Whoosh_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p2/Reply_index/MAIN.tmp/3zx5xd4y4gfknyux8eg42314wfw3.ctmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p2/Reply_index/MAIN.tmp/667vmnptjrxrcdq7o2ljhqxgpi4k.ctmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p2/Reply_index/MAIN_czxfz4wuhqhx76ul.pst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p2/Reply_index/MAIN_czxfz4wuhqhx76ul.trm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p2/Reply_index/MAIN_mo8y8sarrwf7yq6n.pst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p2/Reply_index/MAIN_mo8y8sarrwf7yq6n.trm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p2/Reply_index/_MAIN_0.toc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p2/Thread_index/MAIN_kjfooat2wh49kama.seg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p2/Thread_index/_MAIN_1.toc" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/p2/Thread_index/_MAIN_1.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p2/Whoosh_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/p2/Whoosh_2.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

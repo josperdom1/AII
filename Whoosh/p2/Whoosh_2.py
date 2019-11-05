@@ -54,11 +54,9 @@ def extract_replies_from_thread(url):
     res = []
 
     for p in replies:
-
         reply = []
 
         reply.append(title)
-
         reply.append(url)
 
         date = p.find("span", "date")
@@ -87,15 +85,15 @@ def extract_all_replies(threads):
         res.extend(extract_replies_from_thread(th[1]))
     return res
 
-def create_thread_index(dir_index, threads):
 
+def create_thread_index(dir_index, threads):
     if not os.path.exists(dir_index):
         os.mkdir(dir_index)
 
     ix = create_in(dir_index, schema=get_thread_schema())
     writer = ix.writer()
     for thread in threads:
-        writer.add_document(title=thread[0], link=thread[1], author=thread[2],
+        writer.add_document(title=str(thread[0]), link=str(thread[1]), author=str(thread[2]),
                             date=thread[3], replys=thread[4], views=thread[5])
     writer.commit()
 
@@ -110,7 +108,8 @@ def create_reply_index(dir_index, replies):
     ix = create_in(dir_index, schema=get_reply_schema())
     writer = ix.writer()
     for reply in replies:
-        writer.add_document(thread_title=reply[0], link=reply[1], date=reply[2], content=reply[3], author=reply[4])
+        writer.add_document(thread_title=str(reply[0]), link=str(reply[1]), date=reply[2],
+                            content=str(reply[3]), author=str(reply[4]))
     writer.commit()
 
 
@@ -123,9 +122,10 @@ def get_thread_schema():
 
 
 def get_reply_schema():
-    return Schema(thread_title=TEXT(stored=True, phrase=False), link=TEXT(phrase=False),
-                  date=DATETIME(stored=True),
-                  content=TEXT , author=TEXT(stored=True, phrase=False))
+    return Schema(thread_title=whoosh.fields.TEXT(stored=True, phrase=False),
+                  link=whoosh.fields.TEXT(phrase=False),
+                  date=whoosh.fields.DATETIME(stored=True),
+                  content=whoosh.fields.TEXT, author=whoosh.fields.TEXT(stored=True, phrase=False))
 
 
 def search_threads_by_title(title):
@@ -157,7 +157,7 @@ def search_threads_by_author(author):
 
 
 def search_replies_by_content(query):
-    ix = open_dir("Replies_index")
+    ix = open_dir("Reply_index")
 
     with ix.searcher() as searcher:
         my_query = QueryParser("content", ix.schema).parse(query)
@@ -284,7 +284,8 @@ def main():
 
     def create_index():
         threads = extract_threads()
-        create_reply_index("Reply_index", extract_all_replies(threads))
+        replies = extract_all_replies(threads)
+        create_reply_index("Reply_index", replies)
         create_thread_index("Thread_index", threads)
 
 
