@@ -6,10 +6,8 @@ from whoosh.qparser import QueryParser
 from tkinter import messagebox
 import os
 from tkinter import *
-
 # Crea un indice desde los documentos contenidos en dirdocs
 # El indice lo crea en un directorio (dirindex)
-
 def create_index(dir_docs, dir_index):
 
     if not os.path.exists(dir_index):
@@ -50,11 +48,12 @@ def search_by_recipient(dir_index, query):
     with ix.searcher() as searcher:
         my_query = QueryParser("from_who", ix.schema).parse(query)
         results = searcher.search(my_query, limit=6)
+        res = []
         for r in results:
-            res = []
             mail = [r['to_who'], r['subject']]
             res.append(mail)
-            return res
+
+    return res
 
 
 def main():
@@ -73,20 +72,30 @@ def main():
     entry.pack(side="top")
 
     def search():
-        show_list(search_by_recipient("Index", entry.get()), root)
+        show_list(search_by_recipient("Index", entry.get()), frame)
 
     search_button = Button(root, text="Search", command=search)
     search_button.pack(side="top")
 
+    frame = Frame(root)
+    frame.pack(fill=BOTH, expand=1)
+
     root.mainloop()
 
 
-def show_list(elements, tk):
+def clear_window(tk):
+    ls = tk.pack_slaves()
+    for l in ls:
+        l.destroy()
+
+
+def show_list(elements, frame):
+    clear_window(frame)
     # Scrollbar
-    scrollbar = Scrollbar(tk)
+    scrollbar = Scrollbar(frame)
     scrollbar.pack(side=RIGHT, fill=Y)
     # Listbox widget
-    mylist = Listbox(tk, yscrollcommand=scrollbar.set)
+    mylist = Listbox(frame, yscrollcommand=scrollbar.set)
     mylist.pack(fill=BOTH, expand=1)
     scrollbar.config(command=mylist.yview)
     # Add elements to listbox

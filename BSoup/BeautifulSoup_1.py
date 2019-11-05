@@ -134,7 +134,7 @@ def addEntry(tk):
     clearWindow(tk)
     frame = Frame(tk)
     frame.pack()
-    entry = ttk.Entry(frame)
+    entry = tk.Entry(frame)
     entry.pack(side="left")
     results_frame = Frame(tk)
     results_frame.pack(fill=BOTH, expand=1)

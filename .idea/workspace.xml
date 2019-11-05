@@ -3,6 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="fc400765-4289-4937-baf1-e084b2f90392" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSoup/BeautifulSoup_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/BSoup/BeautifulSoup_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSoup/ulabox.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enunciados/Whoosh/Ejercicio Whoosh.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p1/Index/MAIN_j9vgl51rvfqvcvlp.seg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p1/Index/_MAIN_1.toc" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/p1/Index/_MAIN_1.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p1/Whoosh_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/p1/Whoosh_1.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,8 +29,9 @@
   <component name="ProjectId" id="1RI3yG8VRyCV9es0wN3PvyWunpq" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Downloads/Untitled-Copy1.py" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -50,7 +57,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ulabox">
+  <component name="RunManager" selected="Python.Whoosh_2">
     <configuration name="Whoosh1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="prueba" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -93,7 +100,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="exam" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Whoosh_2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="prueba" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -101,11 +108,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Whoosh/p2" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/exam.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Whoosh/p2/Whoosh_2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -179,11 +186,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Whoosh_2" />
         <item itemvalue="Python.ulabox" />
         <item itemvalue="Python.Whoosh_1" />
         <item itemvalue="Python.Whoosh1" />
         <item itemvalue="Python.practicaBSA_examen" />
-        <item itemvalue="Python.exam" />
       </list>
     </recent_temporary>
   </component>
@@ -199,6 +206,16 @@
       <updated>1569341035557</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
