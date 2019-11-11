@@ -100,39 +100,42 @@ def search_emails_after_date(date):
     return emails
 
 
-def get_files_with_spam(spamwords):
+def search_files_with_spam(spam_words):
     ix = open_dir("email_index")
 
     with ix.searcher() as searcher:
-        my_query = QueryParser("subject", ix.schema).parse(spamwords.replace(" ", " OR "))
+        my_query = QueryParser("subject", ix.schema).parse(spam_words.replace(" ", " OR "))
         results = searcher.search(my_query, limit=None)
         filenames = [r["id"] for r in results]
 
     return filenames
 
+
+def main_menu():
+    option = input("\nSelect an option: \n"
+                   "1) Search sender and subject by body or subject \n"
+                   "2) Search sender recipient and subject after a given date\n"
+                   "3) Search files name by spam words in the subject Ex: Contrato Gracias compraventa \n")
+
+    if option == "1":
+        query = input("Enter search query: ")
+        print(search_emails(query))
+    elif option == "2":
+        query = input("Enter date in format YYYYMMDD: ")
+        search_emails_after_date(query)
+    elif option == "3":
+        query = input("Enter spamwords: ")
+        search_files_with_spam(query)
+    else:
+        print("Please select a valid option\n")
+
+    main_menu()
+
+
 def main():
     create_email_index("email_index", "/home/andres/AII/Enunciados/Whoosh/Ejercicio 2/Correos")
     create_contacts_index("contacts_index", "/home/andres/AII/Enunciados/Whoosh/Ejercicio 2/Agenda/agenda.txt")
-    print(search_emails("noticias"))
-
-    print("Select an option: \n"
-          "1) Search sender and subject by body or subject \n"
-          "2) Search sender recipient and subject after the given date in format YYYYMMDD\n"
-          "3) Search files name by spam words in the subject Ex: Contrato Gracias compraventa \n")
-
-    switch(input){
-        case 1:
-
-        break;
-        case 2:
-
-        break;
-        case 3:
-
-        break;
-        default:
-        print("select an option beetween 1 and 3")
-    }
+    main_menu()
 
 
 if __name__ == '__main__':
