@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc400765-4289-4937-baf1-e084b2f90392" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Whoosh/Whoosh_4.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Whoosh/p3/contacts_index/MAIN_jn1pxwuxonas6e8h.seg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Whoosh/p3/contacts_index/_MAIN_1.toc" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/p3/contacts_index/_MAIN_1.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Whoosh/p3/email_index/MAIN_zy9z3cgalsp5fp39.seg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Whoosh/p3/email_index/_MAIN_1.toc" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/p3/email_index/_MAIN_1.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Whoosh/p3/whoosh_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/p3/whoosh_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p1/Index/MAIN_ozaltj70j0ufv1bz.seg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/p1/Index/_MAIN_1.toc" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/p1/Index/_MAIN_1.toc" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,28 +54,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.whoosh_3">
-    <configuration name="Whoosh1" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="prueba" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Whoosh/Whoosh_1.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.Whoosh_4">
     <configuration name="Whoosh_1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="prueba" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -112,6 +89,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Whoosh/p2/Whoosh_2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Whoosh_4" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="prueba" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Whoosh" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Whoosh/Whoosh_4.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -185,11 +183,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.whoosh_3" />
+        <item itemvalue="Python.Whoosh_4" />
         <item itemvalue="Python.Whoosh_2" />
-        <item itemvalue="Python.ulabox" />
         <item itemvalue="Python.Whoosh_1" />
-        <item itemvalue="Python.Whoosh1" />
+        <item itemvalue="Python.whoosh_3" />
+        <item itemvalue="Python.ulabox" />
       </list>
     </recent_temporary>
   </component>
