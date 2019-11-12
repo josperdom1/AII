@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc400765-4289-4937-baf1-e084b2f90392" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Whoosh/Whoosh_4.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Whoosh/p1/Index/MAIN_ozaltj70j0ufv1bz.seg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Whoosh/p1/Index/_MAIN_1.toc" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/p1/Index/_MAIN_1.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/Whoosh_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/Whoosh_4.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

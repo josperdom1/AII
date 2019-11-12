@@ -4,15 +4,65 @@ from whoosh.index import create_in, open_dir
 from whoosh.fields import *
 from whoosh.qparser import QueryParser
 from tkinter import messagebox
-import os
 from tkinter import *
+from bs4 import BeautifulSoup
+from datetime import datetime
+import urllib.request
+import locale
+import os
+locale.setlocale(locale.LC_ALL, 'es_ES.UTF-8')
+
+
+def extract_news_from_pages(number_of_pages):
+    res = []
+    for n in range(number_of_pages):
+        res.extend(extract_news("http://www.sensacine.com/noticias/?page=" + str(n + 1)))
+    return res
+
+
+def extract_news(url):
+    html_doc = urllib.request.urlopen(url).read()
+    soup = BeautifulSoup(html_doc, 'html.parser')
+
+    col_left = soup.find("div", "col-left")
+    news = col_left.find_all("div", "news-card")
+
+    saved_news = []
+
+    for n in news:
+
+        story = []
+
+        category = n.find("div", "meta-category").string
+        title = n.find("a", "meta-title-link").string
+        link = n.find("figure", "thumbnail").find("img").get("src")
+
+        description = ""
+
+        if n.find("div", "meta-body") is not None:
+            description = n.find("div", "meta-body").string
+
+        date = n.find("div", "meta-date").string
+
+        res = date.replace(" de", "").split(",")[1].strip()
+
+        parse_date = datetime.strptime(res, "%d %B %Y")
+
+        story.append(category)
+        story.append(title)
+        story.append(link)
+        story.append(description)
+        story.append(parse_date)
+
+        saved_news.append(story)
+
+    return saved_news
 
 
 def get_news_schema():
     return Schema(category=TEXT(stored=True), title=TEXT(stored=True),
                   link=TEXT(stored=True), description=TEXT,
                   date=DATETIME(stored=True))
-
 
 
 def create_news_index(dir_index, news):
@@ -28,11 +78,12 @@ def create_news_index(dir_index, news):
         link = story[2]
         description = story[3]
         date = story[4]
-        writer.add_document(category=category, title=title, link=link, description=description, date=date)
+        writer.add_document(category=str(category), title=str(title), link=str(link),
+                            description=str(description), date=date)
 
     writer.commit()
-    messagebox.showinfo("Terminado",
-                        "Base de datos creada correctamente. Se han guardado " + str(len(news)) + " noticias")
+    messagebox.showinfo("Succes",
+                        "Index created correctly, " + str(len(news)) + " news saved")
 
 
 def search_news_a(text):
@@ -56,7 +107,9 @@ def get_yyyymmdd(date):
     return splitted_date[2] + splitted_date[1] + splitted_date[0]
 
 
-def search_news_b(from_date, to_date):
+def search_news_b(query):
+    from_date = query.split(" ")[0]
+    to_date = query.split(" ")[1]
     ix = open_dir("news_index")
 
     with ix.searcher() as searcher:
@@ -79,11 +132,6 @@ def search_news_c(sentence):
 
     return news
 
-def extract_news_from_pages(number_of_pages):
-    res = []
-    for n in range(number_of_pages):
-        res.extend(extract_news("http://www.sensacine.com/noticias/?page=" + str(n + 1)))
-    return res
 
 def show_news_c(news, frame):
     # Scrollbar
@@ -151,20 +199,17 @@ def search_window(option):
     if option == 1:
         def search_caller():
             clear_window(results_frame)
-            # news = search_news_a(entry.get())
-            news = [["Categoria", "Titulo", "Fecha"], ["Categoria1", "Titulo1", "Fecha1"]]
+            news = search_news_a(entry.get())
             show_news_a(news, results_frame)
     elif option == 2:
         def search_caller():
             clear_window(results_frame)
-            # news = search_news_b(entry.get())
-            news = [["Titulo", "Fecha"], ["Titulo1", "Fecha1"]]
+            news = search_news_b(entry.get())
             show_news_b(news, results_frame)
     else:
         def search_caller():
             clear_window(results_frame)
-            # news = search_news_c(entry.get())
-            news = [["Titulo", "Link", "Descripcion"], [ "Titulo1", "Link2", "Descripcion3"]]
+            news = search_news_c(entry.get())
             show_news_c(news, results_frame)
 
     b = Button(main_frame, text="Search", command=search_caller)
@@ -193,7 +238,7 @@ def main():
     home_menu = Menu(menu_bar, tearoff=0)
     menu_bar.add_cascade(label="Home", menu=home_menu)
 
-    home_menu.add_command(label="Create index", command=lambda: create_news_index(extract_news_from_pages(3)))
+    home_menu.add_command(label="Create index", command=lambda: create_news_index('news_index', extract_news_from_pages(3)))
     home_menu.add_separator()
     home_menu.add_command(label="Close", command=close_window)
 
@@ -209,5 +254,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(translate('12 de noviembre de 2019'))
     main()
