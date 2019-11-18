@@ -7,5 +7,5 @@ Created during the course 2019/2020 to collect all practices, problems and their
 Some web pages can upgrade its html, be careful.
 
 <h3>Whoosh</h3>
-Chech your directories.
+Check your directories creating indexes.
 
