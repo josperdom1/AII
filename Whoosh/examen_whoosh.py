@@ -2,20 +2,18 @@ __author__ = 'Andres Perez Dominguez'
 
 import urllib.request
 import locale
-locale.setlocale(locale.LC_ALL, 'es_ES.utf8')
-locale.setlocale(locale.LC_ALL, 'es_ES.UTF-8')
 import os
-from tkinter import *
-from tkinter import messagebox
 import urllib
 import dateutil.parser
+from tkinter import *
+from tkinter import messagebox
 from bs4 import BeautifulSoup
 from whoosh.fields import *
 from whoosh.index import create_in, open_dir
 from whoosh.qparser import QueryParser
-import locale
-locale.setlocale(locale.LC_ALL, 'es_ES.utf8')
 from datetime import datetime as dt
+
+locale.setlocale(locale.LC_ALL, 'es_ES.UTF-8')
 
 
 def extract_events():
@@ -70,6 +68,7 @@ def extract_events():
 
     return saved_events
 
+
 def get_events_schema():
     return Schema(title=TEXT(stored=True), start_date=DATETIME(stored=True),
                   end_date=DATETIME(stored=True), description=TEXT(stored=True),
@@ -94,7 +93,8 @@ def create_events_index(dir_index, events):
                             categories=categories)
 
     writer.commit()
-    messagebox.showinfo("Terminado", "Base de datos creada correctamente. Se han guardado " + str(len(events)) + " elementos")
+    messagebox.showinfo("Terminado",
+                        "Base de datos creada correctamente. Se han guardado " + str(len(events)) + " elementos")
 
 
 def search_events_a(text):
@@ -108,7 +108,7 @@ def search_events_a(text):
         my_query = QueryParser("title", ix.schema).parse(text)
 
         results = searcher.search(my_query, limit=None)
-        #events = [[r["title"], r["start_date"], r["end_date"]] for r in results]
+        # events = [[r["title"], r["start_date"], r["end_date"]] for r in results]
 
         events = []
         for r in results:
@@ -127,7 +127,6 @@ def search_events_a(text):
                 event.append("")
 
             events.append(event)
-
 
     return events
 
@@ -254,10 +253,7 @@ def search_events_b(date):
 
         events = []
         for r in results:
-            event = []
-
-            event.append(r["title"])
-
+            event = [r["title"]]
             try:
                 event.append(r["start_date"])
             except:
@@ -347,14 +343,6 @@ def search_window(option):
     results_frame = Frame(new_window)
     main_frame.pack()
     results_frame.pack(fill=BOTH, expand=1)
-
-    # entry = Entry(main_frame)
-    # entry.pack(side="left")
-
-    # authors = get_authors()
-    # spinbox = Spinbox(frame, values=authors)
-    # spinbox.pack(side="left")
-    # spinbox.get()
 
     if option == 1:
         entry = Entry(main_frame)

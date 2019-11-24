@@ -1,0 +1,29 @@
+<html lang='es'>
+  <header>
+  	<nav>
+  		<ul>
+			<li><a href='/films'>Home</a></li>
+			<li><a href='/films/list_standard_users'>Users</a></li>
+			<li><a href='/films/list_films_by_category'>Films</a></li>
+			<li><a href='/films/list_directors'>Directors</a></li>
+		</ul>
+	</nav>
+  </header>
+  <section>
+    <h1>Users</h1>
+    <ul>
+        {% for user in users %}
+        <li>Name: {{user.name}}</li>
+        <li>Surname: {{user.surname}}</li>
+        <li>Favourite categories:<br>
+            {% for cat in user.categories.all %}
+            <ul>
+                <li>{{cat.name}}</li>
+            </ul>
+            {% endfor %}
+        </li>
+        <br>
+        {% endfor %}
+    </ul>
+  </section>
+</html>

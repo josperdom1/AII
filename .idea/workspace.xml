@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc400765-4289-4937-baf1-e084b2f90392" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Whoosh/examen_whoosh.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Whoosh/practicaWHA.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Whoosh/pruebas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Whoosh/news_index/MAIN_491cw3rlmeo87ec5.seg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Whoosh/news_index/_MAIN_1.toc" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/news_index/_MAIN_1.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Whoosh/examen_whoosh.py" beforeDir="false" afterPath="$PROJECT_DIR$/Whoosh/examen_whoosh.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,7 +27,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Whoosh" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Django/ejercicio1" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>

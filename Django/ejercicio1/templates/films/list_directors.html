@@ -1,0 +1,29 @@
+<html lang='es'>
+  <header>
+  	<nav>
+  		<ul>
+			<li><a href='/films'>Home</a></li>
+			<li><a href='/films/list_standard_users'>Users</a></li>
+			<li><a href='/films/list_films_by_category'>Films</a></li>
+			<li><a href='/films/list_directors'>Directors</a></li>
+		</ul>
+	</nav>
+  </header>
+  <section>
+    <h1>Users</h1>
+    <ul>
+        {% for dir in directors %}
+        <li>Name: {{dir.name}}</li>
+        <li>Surname: {{dir.surname}}</li>
+         <li>Directed films:<br>
+            {% for film in director.films %}
+            <ul>
+                <li>{{film.title}}</li>
+            </ul>
+            {% endfor %}
+        </li>
+        <br>
+        {% endfor %}
+    </ul>
+  </section>
+</html>
