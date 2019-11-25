@@ -1,4 +1,3 @@
-from django.core.validators import URLValidator
 from django.db import models
 
 
@@ -6,14 +5,14 @@ from django.db import models
 class User(models.Model):
     uid = models.IntegerField(primary_key=True)
     age = models.PositiveSmallIntegerField()
-    sex = models.CharField(choices=["M", "F"])
-    postal_code = models.CharField()
+    sex = models.CharField(max_length=5, choices=(("M", "Man"), ("F", "Femme")))
+    postal_code = models.CharField(max_length=500)
 
-    occupation = models.ForeignKey('Occupation', on_delete=models.SET_NULL)
+    occupation = models.ForeignKey('Occupation', on_delete=models.CASCADE)
 
 
 class Occupation(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=500)
 
 
 class Category(models.Model):
@@ -26,7 +25,7 @@ class Film(models.Model):
     title = models.CharField(max_length=100, unique=True)
     year = models.DateField()
     url = models.URLField()
-    rating = models.ManyToManyField('Rate', through=User)
+    rating = models.ManyToManyField(User, through='Rate')
 
     categories = models.ManyToManyField(Category)
 
@@ -35,7 +34,5 @@ class Rate(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     film = models.ForeignKey(Film, on_delete=models.CASCADE)
     number = models.SmallIntegerField()
-
-    categories = models.ManyToManyField(Category)
 
 
