@@ -15,7 +15,7 @@
         {% for film in films %}
         <li>Title: {{film.title}}</li>
         <li>Director: {{film.director}}</li>
-        <li>Directed films:<br>
+        <li>Category:<br>
             {% for film in director.films.all %}
             <ul>
                 <li>{{film.title}}</li>

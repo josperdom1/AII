@@ -12,11 +12,11 @@
   <section>
     <h1>Users</h1>
     <ul>
-        {% for dir in directors %}
-        <li>Name: {{dir.name}}</li>
-        <li>Surname: {{dir.surname}}</li>
+        {% for row in directors %}
+        <li>Name: {{row.director.name}}</li>
+        <li>Surname: {{row.director.surname}}</li>
          <li>Directed films:<br>
-            {% for film in director.films %}
+            {% for film in row.films %}
             <ul>
                 <li>{{film.title}}</li>
             </ul>
