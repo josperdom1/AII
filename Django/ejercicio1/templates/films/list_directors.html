@@ -1,14 +1,5 @@
-<html lang='es'>
-  <header>
-  	<nav>
-  		<ul>
-			<li><a href='/films'>Home</a></li>
-			<li><a href='/films/list_standard_users'>Users</a></li>
-			<li><a href='/films/list_films_by_category'>Films</a></li>
-			<li><a href='/films/list_directors'>Directors</a></li>
-		</ul>
-	</nav>
-  </header>
+{% extends 'films/index.html' %}
+  {% block content %}
   <section>
     <h1>Users</h1>
     <ul>
@@ -26,4 +17,5 @@
         {% endfor %}
     </ul>
   </section>
+{% endblock %}
 </html>
