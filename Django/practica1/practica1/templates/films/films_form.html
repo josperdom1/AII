@@ -1,0 +1,19 @@
+{% extends 'films/index.html' %}
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    Date:{{ form.year }}
+    <button type="submit">Search</button>
+</form>
+
+
+{% for film in films%}
+        <ul>
+			<li>Title: {{film.title}}</li>
+            <li>Year: {{film.year}}</li>
+            <br>
+		</ul>
+{% endfor %}
+
+{% endblock %}

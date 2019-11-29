@@ -1,4 +1,5 @@
 from django import forms
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class user_id_form(forms.Form):
@@ -6,4 +7,4 @@ class user_id_form(forms.Form):
 
 
 class film_year_form(forms.Form):
-    year = forms.IntegerField()
+    year = forms.DateField(widget=forms.widgets.DateInput(format="%m/%d/%Y"))
