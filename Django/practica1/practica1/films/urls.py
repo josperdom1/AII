@@ -5,6 +5,8 @@ from films.views import *
 
 urlpatterns = [
     url(r'^$', index, name="index"),
+    url(r'^users_by_occupation/', show_user_by_occupation, name="user_by_occupation"),
+    url(r'^top_rated_films/', show_top_films, name="top_rated_films"),
     url(r'^search_users/', form_user, name="search_users"),
     url(r'^search_films/', form_film, name="search_films"),
     url(r'^populate/', populate, name="populate"),

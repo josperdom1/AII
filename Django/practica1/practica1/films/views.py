@@ -1,8 +1,11 @@
+from django.db.models.aggregates import Avg
 from django.shortcuts import render
 from django.shortcuts import render
 from django.db import models
 from .models import User, Occupation, Category, Film, Rate
 import datetime as dt
+import collections
+import operator
 
 # Create your views here.
 from films.forms import user_id_form, film_year_form
@@ -102,3 +105,14 @@ def form_film(request):
     context.__setitem__('form', form)
 
     return render(request, 'films/films_form.html', context)
+
+
+def show_top_films(request):
+    films = Film.objects.annotate(avg_rating=Avg('rate__number')).order_by('-avg_rating')[:5]
+    return render(request, 'films/top_films.html', {'films': films})
+
+
+def show_user_by_occupation(request):
+    users = User.objects.raw('SELECT * FROM FILMS_USER GROUP BY OCCUPATION_ID')
+
+    return render(request, 'films/show_users.html', {'users': users})

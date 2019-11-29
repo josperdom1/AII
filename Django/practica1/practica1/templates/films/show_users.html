@@ -1,0 +1,14 @@
+{% extends 'films/index.html' %}
+{% block content %}
+
+{% for user in users%}
+        <ul>
+			<li>Id: {{user.uid}}</li>
+            <li>Age: {{user.age}}</li>
+            <li>Postal code {{user.postal_code}}</li>
+            <li>Occupation: {{user.occupation.name}}</li>
+            <br>
+		</ul>
+{% endfor %}
+
+{% endblock %}
