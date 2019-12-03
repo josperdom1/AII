@@ -1,0 +1,25 @@
+{% extends 'films/index.html' %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Search</button>
+</form>
+
+{% for rate in rates%}
+        <ul>
+			<li>Title: {{rate.film.title}}</li>
+            <li>Rate: {{rate.number}}</li>
+            <br>
+		</ul>
+{% endfor %}
+
+{% for film in films%}
+        <ul>
+			<li>Title: {{film.title}}</li>
+            <li>Year: {{film.year}}</li>
+            <br>
+		</ul>
+{% endfor %}
+
+{% endblock %}
