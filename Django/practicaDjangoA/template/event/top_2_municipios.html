@@ -1,0 +1,14 @@
+{% extends 'event/index.html' %}
+{% block content %}
+
+{% for municipio in municipios%}
+		<h3>Nombre del municipio:</h3>
+        <ul>
+			<li>{{municipio.name}}</li>
+		</ul>
+{% endfor %}
+
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mostrar eventos por mes</title>
+</head>
+<body>
+
+<h1>Eventos por mes</h1>
+
+{% extends 'index.html' %}
+{% block content %}
+
+{% for event in events%}
+        <ul>
+			<li>Nombre del evento: {{event.name}}</li>
+            <li>Fecha: {{event.date}}</li>
+            <li>Precio: {{event.price}}</li>
+            <li>Lugar de celebracion: {{event.place}}</li>
+            <br>
+		</ul>
+{% endfor %}
+
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'event/index.html' %}
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Search</button>
+</form>
+
+
+{% for event in events%}
+        <ul>
+			<li>Nombre del evento: {{event.name}}</li>
+            <li>Fecha: {{event.start_date}}</li>
+            <li>Lugar de celebracion: {{event.location}}</li>
+            <li>Tipo: {{event.type}}</li>
+            <br>
+		</ul>
+{% endfor %}
+
+{% endblock %}
