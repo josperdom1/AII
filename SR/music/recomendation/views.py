@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.db import models
+from django.db.models import F, Q, Exists, Value, IntegerField, Sum
 from .models import Artista, UsuarioEtiquetaArtista, Usuario, UsuarioArtista, Etiqueta
 import csv
 import datetime as dt
@@ -15,7 +16,7 @@ def populate(request):
     populate_user_artists()
     populate_user_taggedartists()
 
-    return render(request, 'recomendation/populate.html')
+    return render(request, 'recomendation/index.html')
 
 
 def populate_artists():
@@ -33,7 +34,6 @@ def populate_tags():
         csv_reader = csv.reader(csv_file, delimiter='\t')
         next(csv_reader)
         list_to_create = [Etiqueta(idTag=row[0], tagValue=row[1]) for row in csv_reader]
-    print(list_to_create)
     Etiqueta.objects.bulk_create(list_to_create)
 
 
@@ -47,9 +47,16 @@ def populate_user_artists():
     with open(data_path + "user_artists.dat", "r", encoding="ISO-8859-1") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter='\t')
         next(csv_reader)
-        list_to_create = [
-            UsuarioArtista(usuario=Usuario.objects.get(idUsuario=row[0]), artista=Artista.objects.get(idArtista=row[1]),
-                           tiempoEscucha=row[2]) for row in csv_reader]
+        list_to_create = []
+        for row in csv_reader:
+            try:
+                ua = UsuarioArtista(usuario=Usuario.objects.get(idUsuario=row[0]),
+                                    artista=Artista.objects.get(idArtista=row[1]),
+                                    tiempoEscucha=row[2])
+                list_to_create.append(ua)
+            except:
+                pass
+
     UsuarioArtista.objects.bulk_create(list_to_create)
 
 
@@ -61,14 +68,14 @@ def populate_user_taggedartists():
         list_to_create = []
         for row in csv_reader:
             try:
-                artista=Artista.objects.get(idArtista=row[1])
+                uea = UsuarioEtiquetaArtista(usuario=Usuario.objects.get(idUsuario=row[0]),
+                                             artista=Artista.objects.get(idArtista=row[1]),
+                                             tag=Etiqueta.objects.get(idTag=row[2]),
+                                             fecha=dt.date(int(row[5]), int(row[4]), int(row[3])))
+                list_to_create.append(uea)
             except:
-                artista=Artista.objects.get(idArtista=1)
-            uea = UsuarioEtiquetaArtista(usuario=Usuario.objects.get(idUsuario=row[0]),
-                                    artista=artista,
-                                    tag=Etiqueta.objects.get(idTag=row[2]),
-                                    fecha=dt.date(int(row[5]), int(row[4]), int(row[3])))
-            list_to_create.append(uea)
+                pass
+
     UsuarioEtiquetaArtista.objects.bulk_create(list_to_create)
 
 
@@ -82,8 +89,20 @@ def form_a(request):
         form = user_id_form(request.POST)
         if form.is_valid():
             user_id = form.cleaned_data['userId']
-            artists = Artist.objects.filter(Usuario__idUsuario=user_id)
-            context.__setitem__('artists', artists)
+            try:
+                list = []
+                arts = Artista.objects.filter(usuario__idUsuario=user_id)
+
+                for a in arts:
+                    item = []
+                    time = UsuarioArtista.objects.filter(usuario_id=user_id, artista_id=a.idArtista).first().tiempoEscucha
+                    item.append(a)
+                    item.append(time)
+                    list.append(item)
+            except:
+                pass
+
+            context.__setitem__('artists', list)
     else:
         form = user_id_form()
 
@@ -92,5 +111,6 @@ def form_a(request):
     return render(request, 'recomendation/form_a.html', context)
 
 
-def form_b():
-    return true
+def top_artist(request):
+    artists = Artista.objects.annotate(time=Sum('usuarioartista__tiempoEscucha')).order_by('-time')[:3]
+    return render(request, 'recomendation/top_artists.html', {'artists': artists})
