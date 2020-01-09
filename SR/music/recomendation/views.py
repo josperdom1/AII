@@ -33,6 +33,7 @@ def populate_tags():
         csv_reader = csv.reader(csv_file, delimiter='\t')
         next(csv_reader)
         list_to_create = [Etiqueta(idTag=row[0], tagValue=row[1]) for row in csv_reader]
+    print(list_to_create)
     Etiqueta.objects.bulk_create(list_to_create)
 
 
@@ -57,12 +58,18 @@ def populate_user_taggedartists():
     with open(data_path + "user_taggedartists.dat", "r", encoding="ISO-8859-1") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter='\t')
         next(csv_reader)
-        list_to_create = [UsuarioEtiquetaArtista(usuario=Usuario.objects.get(idUsuario=row[0]),
-                                                 artista=Artista.objects.get(idArtista=row[1]),
-                                                 tag=Etiqueta.objects.get(idArtista=row[2]),
-                                                 fecha=dt.date(int(row[5]), int(row[4]), int(row[3]))) for row in
-                          csv_reader]
-    Etiqueta.objects.bulk_create(list_to_create)
+        list_to_create = []
+        for row in csv_reader:
+            try:
+                artista=Artista.objects.get(idArtista=row[1])
+            except:
+                artista=Artista.objects.get(idArtista=1)
+            uea = UsuarioEtiquetaArtista(usuario=Usuario.objects.get(idUsuario=row[0]),
+                                    artista=artista,
+                                    tag=Etiqueta.objects.get(idTag=row[2]),
+                                    fecha=dt.date(int(row[5]), int(row[4]), int(row[3])))
+            list_to_create.append(uea)
+    UsuarioEtiquetaArtista.objects.bulk_create(list_to_create)
 
 
 def index(request):
