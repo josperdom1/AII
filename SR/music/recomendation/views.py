@@ -53,7 +53,7 @@ def populate_user_artists():
 
 
 def populate_user_taggedartists():
-    Etiqueta.objects.all().delete()
+    UsuarioEtiquetaArtista.objects.all().delete()
     with open(data_path + "user_taggedartists.dat", "r", encoding="ISO-8859-1") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter='\t')
         next(csv_reader)
