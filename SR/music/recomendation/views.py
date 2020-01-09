@@ -3,6 +3,7 @@ from django.db import models
 from .models import Artista, UsuarioEtiquetaArtista, Usuario, UsuarioArtista, Etiqueta
 import csv
 import datetime as dt
+from recomendation.forms import *
 
 data_path = "./hetrec2011-lastfm-2k/"
 
@@ -81,7 +82,7 @@ def form_a(request):
 
     context.__setitem__('form', form)
 
-    return render(request, 'music/form.html', context)
+    return render(request, 'recomendation/form_a.html', context)
 
 
 def form_b():
