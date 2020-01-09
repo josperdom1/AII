@@ -1,0 +1,17 @@
+{% extends 'recomendation/index.html' %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Search</button>
+</form>
+
+{% for artist in artist%}
+        <ul>
+			<li>Id: {{artist.idArtista}}</li>
+            <li>Name: {{artist.nombre}}</li>
+            <br>
+		</ul>
+{% endfor %}
+
+{% endblock %}

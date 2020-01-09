@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.urls import path, include
 from films.views import *
 
+from practica1.films.views import index
+
 urlpatterns = [
     url(r'^$', index, name="index"),
     url(r'^users_by_occupation/', show_user_by_occupation, name="user_by_occupation"),

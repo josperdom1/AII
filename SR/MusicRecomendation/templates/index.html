@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="m-2"><h4>music</h4></div>
+<div class="m-2"><a class="btn btn-light" href="{% url 'music_Artista_list' %}">Artista Listing</a></div>
+<div class="m-2"><a class="btn btn-light" href="{% url 'music_UsuarioEtiquetaArtista_list' %}">UsuarioEtiquetaArtista Listing</a></div>
+<div class="m-2"><a class="btn btn-light" href="{% url 'music_Usuario_list' %}">Usuario Listing</a></div>
+<div class="m-2"><a class="btn btn-light" href="{% url 'music_UsuarioArtista_list' %}">UsuarioArtista Listing</a></div>
+<div class="m-2"><a class="btn btn-light" href="{% url 'music_Etiqueta_list' %}">Etiqueta Listing</a></div>
+{% endblock %}

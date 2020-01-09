@@ -7,9 +7,6 @@ import datetime as dt
 import collections
 import operator
 
-# Create your views here.
-from films.forms import user_id_form, film_year_form
-
 
 def populate(request):
     populate_categories()

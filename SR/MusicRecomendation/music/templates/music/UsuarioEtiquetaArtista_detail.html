@@ -1,0 +1,17 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'music_UsuarioEtiquetaArtista_list' %}">
+    UsuarioEtiquetaArtista Listing
+    </a>
+</p>
+    
+<table class="table">
+    <tr><td>Fecha</td><td>{{ object.Fecha }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
+
+{% endblock %}

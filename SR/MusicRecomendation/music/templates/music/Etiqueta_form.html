@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'music_Etiqueta_list' %}">
+    Etiqueta Listing
+    </a>
+</p>
+    
+<form method="post">
+{% csrf_token %}
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="TagValue">TagValue: </label>
+  <input class="form-control col-sm-10" id="TagValue" type="text" name="TagValue" value="{{ object.TagValue }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="IdTag">IdTag: </label>
+  <input class="form-control col-sm-10" id="IdTag" type="number" name="IdTag" value="{{ object.IdTag }}">
+  </div>
+  <input type="submit" value="Save" class="btn btn-primary">
+</form>
+
+{% endblock %}

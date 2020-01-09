@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'music_UsuarioEtiquetaArtista_list' %}">
+    UsuarioEtiquetaArtista Listing
+    </a>
+</p>
+    
+<form method="post">
+{% csrf_token %}
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="Fecha">Fecha: </label>
+  <input class="form-control col-sm-10" id="Fecha" type="text" name="Fecha" value="{{ object.Fecha }}">
+  </div>
+  <input type="submit" value="Save" class="btn btn-primary">
+</form>
+
+{% endblock %}
