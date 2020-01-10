@@ -7,6 +7,7 @@ class Artista(models.Model):
     pictureUrl = models.URLField()
     nombre = models.TextField(max_length=100)
     idArtista = models.IntegerField(primary_key=True)
+    etiquetasFrec = models.ManyToManyField('Etiqueta')
 
 
 
