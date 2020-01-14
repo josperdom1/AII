@@ -1,0 +1,18 @@
+{% extends 'libros/index.html' %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Search</button>
+</form>
+
+{% for book in books%}
+        <ul>
+			<li>Titulo: {{book.titulo}}</li>
+            <li>Autor: {{book.autor}}</li>
+            <li>Género: {{book.genero}}</li>
+            <br>
+		</ul>
+{% endfor %}
+
+{% endblock %}
