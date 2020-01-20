@@ -8,15 +8,15 @@ class Offer(models.Model):
 
     #  Fields
     offerId = models.IntegerField(primary_key=True)
-    university = models.TextField(default='University')
-    enterprise = models.TextField(default='Enterprise')
-    months = models.IntegerField(default=0)
-    salary = models.IntegerField(default=0)
-    country = models.TextField(default='Country')
-    province = models.TextField(default='Province')
-    city = models.TextField(default='City')
-    description = models.TextField(default='Description')
-    immediate = models.BooleanField(default=True)
+    university = models.TextField(default='University', blank=True, null=True)
+    enterprise = models.TextField(default='Enterprise', blank=True, null=True)
+    months = models.IntegerField(default=0, blank=True, null=True)
+    salary = models.IntegerField(default=0, blank=True, null=True)
+    country = models.TextField(default='Country', blank=True, null=True)
+    province = models.TextField(default='Province', blank=True, null=True)
+    city = models.TextField(default='City', blank=True, null=True)
+    description = models.TextField(default='Description', blank=True, null=True)
+    immediate = models.BooleanField(default=True, blank=True, null=True)
 
 
 class User_offer(models.Model):

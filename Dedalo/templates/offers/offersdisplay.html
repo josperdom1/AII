@@ -1,0 +1,14 @@
+{% extends 'offers/index.html' %}
+
+
+{% block content %}
+
+
+{% for offer in offers%}
+	<ul>
+		<li><b>Offer Id:</b> {{offer.offerId}}, <b>University:</b> {{offer.university}}</li>			
+	</ul>
+    
+{% endfor %}
+
+{% endblock %}

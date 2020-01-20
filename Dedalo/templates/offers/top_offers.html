@@ -1,15 +1,12 @@
 {% extends 'offers/index.html' %}
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Search</button>
-</form>
+
 
 {% for offer in offers%}
         <ul>
             <li>Salary: {{offer.salary}}</li>
             <li>Description: {{offer.description}}</li>
+            <li>Likes: {{offer.number}}</li>
             <br>
 		</ul>
 {% endfor %}
