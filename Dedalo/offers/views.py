@@ -9,7 +9,8 @@ from offers.forms import *
 from collections import Counter
 import itertools
 from robobrowser import RoboBrowser
-import time, random
+import time
+import random
 from djqscsv import write_csv
 from django.http.response import HttpResponse
 from djqscsv.djqscsv import render_to_csv_response
@@ -234,12 +235,7 @@ def get_keywords(offer_list, num_words):
             all_descriptions += f" {offer.description}"
     
     with get_whoosh_index().searcher() as s:
-        return s.key_terms_from_text("description", all_descriptions, num_words)
-
-
-def extract_csv(request):
-    qs = Offer.objects.all()
-    return render_to_csv_response(qs)
+        return [x[0] for x in s.key_terms_from_text("description", all_descriptions, num_words)]
 
 
 def populate_users():
@@ -267,43 +263,17 @@ def populate_user_offer():
     User_offer.objects.bulk_create(user_offers_list)
 
 
+## ---------------------------------------------------------------------------------------------------------------------
+
+
 def index(request):
     return render(request, 'offers/index.html')
 
 
-# def sim_distance(u1, u2):
-#     # Get the list of mutually rated items
-#     qset1 = Libro.objects.filter(usuario=u1)
-#     qset2 = Libro.objects.filter(usuario=u2)
+def extract_csv(request):
+    qs = Offer.objects.all()
+    return render_to_csv_response(qs)
 
-#     books1 = list(qset1)
-#     books2 = list(qset2)
-#     si = {}
-#     for item in books1:
-#         if item in books2: si[item] = 1
-
-
-#     # if they have no ratings in common, return 0
-#     if len(si) == 0: return 0
-
-#     # Add up the squares of all the differences
-#     sum_of_squares = sum([pow( Puntuacion.objects.get(usuario=u1 ,libro=item).puntuacion - Puntuacion.objects.get(usuario=u2 ,libro=item).puntuacion, 2)
-#                           for item in books1 if item in books2])
-
-#     return 1 / (1 + sum_of_squares)
-
-
-# def topMatches (userId, similarity=sim_distance):
-
-#     users = Usuario.objects.exclude(idUsuario=userId)
-#     print(users)
-#     user = Usuario.objects.get(idUsuario=userId)
-
-#     scores =[[other, similarity(user, other)]
-#                   for other in users]
-#     print(scores)
-#     res = Sort(scores)
-#     return res[0]
 
 def my_offers(request):
     context = {}
@@ -321,64 +291,77 @@ def my_offers(request):
     return render(request, 'offers/form_a.html', context)
 
 
+def search_offers(request):
+    context = {}
+    if request.method == 'POST':
+        form = text_form(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            offers = search(query)
+            context.__setitem__('offers', offers)
+    else:
+        form = text_form()
+
+    context.__setitem__('form', form)
+
+    return render(request, 'offers/form_a.html', context)
+
+
 def popular_offers(request):
     offers = Offer.objects.annotate(number=Count('user_offer')).order_by('-number')[:10]
     return render(request, 'offers/top_offers.html', {'offers': offers})
 
 
-# def max_books():
-#     books = Libro.objects.all()
-#     books_rate = []
-#     for b in books:
-#         element = []
-#         try:
+def recom(request):
+    context = {}
+    if request.method == 'POST':
+        form = user_id_form(request.POST)
+        if form.is_valid():
+            user_id = form.cleaned_data['userId']
+            offers = recom_offers(user_id)
+            context.__setitem__('offers', offers)
+    else:
+        form = user_id_form()
 
-#             rate = (b.one + b.two*2 + b.three*3 + b.four*4 + b.five*5)/(b.one + b.two + b.three + b.four + b.five)
-#         except:
-#             rate = 0
+    context.__setitem__('form', form)
 
-#         element.append(b)
-#         element.append(rate)
-#         books_rate.append(element)
-
-#     return Sort(books_rate)
-
-
-# def recom(request):
-#     context = {}
-#     if request.method == 'POST':
-#         form = user_id_form(request.POST)
-#         if form.is_valid():
-#             user_id = form.cleaned_data['userId']
-#             usuario = topMatches(user_id)
-#             print(usuario)
-#             context.__setitem__('usuario', usuario[0])
-#     else:
-#         form = user_id_form()
-
-#     context.__setitem__('form', form)
-
-#     return render(request, 'offers/recom.html', context)
-
-# def recom_books(request):
-#     context = {}
-#     if request.method == 'POST':
-#         form = user_id_form(request.POST)
-#         if form.is_valid():
-#             user_id = form.cleaned_data['userId']
-#             libros = Libro.objects.filter(usuario__idUsuario=user_id)
-#             nice_libros = [i[0] for i in Sort(max_books())[:6]]
-#             res = [libro for libro in nice_libros if libro not in libros]
-
-#             context.__setitem__('books', res)
-#     else:
-#         form = user_id_form()
-
-#     context.__setitem__('form', form)
-
-#     return render(request, 'offers/form_a.html', context)
+    return render(request, 'offers/form_a.html', context)
 
 
 def Sort(sub_li):
     sub_li.sort(key=lambda x: x[1], reverse=True)
     return sub_li
+
+
+
+def offer_similarity(my_keywords, off2):
+    si = []
+    list = []
+    list.append(off2)
+
+    #Get the list of similar keywords
+    for w in get_keywords(list, 20):
+        if w in my_keywords:
+            si.append(w)
+
+    #Number of keywords in common
+    return len(si)
+
+
+def recom_offers(user_id):
+    my_offers = Offer.objects.filter(user_offer__user_id=user_id, user_offer__like=True).order_by('-salary')
+    no_rated_offers = Offer.objects.exclude(user_offer__user_id=user_id).order_by('-salary')
+    my_keywords = get_keywords(my_offers, 50)
+
+    res = []
+    #List with non rated offers and its similarity based on keywords coincidence
+    for o in no_rated_offers:
+        res.append([o, offer_similarity(my_keywords, o)])
+
+    #Normalization
+    max = Sort(res)[0][1]
+    for e in res:
+        e[1] = e[1]/max
+
+    #We order by similarity and return only offers
+    return [x[0] for x in Sort(res)]
