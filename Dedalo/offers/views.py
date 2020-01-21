@@ -14,17 +14,60 @@ from djqscsv import write_csv
 from django.http.response import HttpResponse
 from djqscsv.djqscsv import render_to_csv_response
 from djqscsv import render_to_csv_response
+from whoosh.fields import Schema, TEXT, NUMERIC, BOOLEAN, ID
+import os.path
+from whoosh.index import create_in, open_dir
+from whoosh.query import *
+from whoosh.qparser import QueryParser, MultifieldParser
 
 
 def populate(request):
-    # populate_offers()
-    # populate_users()
-    # populate_user_offer()
+    populate_offers()
+    populate_users()
+    populate_user_offer()
     return render(request, 'offers/index.html')
+
+
+def search(q):
+    qparser = MultifieldParser(["description", "enterprise", "university", "province", "city"], get_whoosh_schema())
+
+    user_q = qparser.parse(q)
+
+    with get_whoosh_index().searcher() as s:
+        results = s.search(user_q)
+        return [Offer.objects.get(pk=result.get('offerId')) for result in results]
+
+
+def get_whoosh_schema():
+    return Schema(offerId=ID(stored=True), university=TEXT(stored=True),
+                  enterprise=TEXT(stored=True), months=NUMERIC(stored=True),
+                  salary=NUMERIC(stored=True), country=TEXT(stored=True),
+                  province=TEXT(stored=True), city=TEXT(stored=True),
+                  description=TEXT(stored=True), immediate=BOOLEAN(stored=True))
+
+def get_whoosh_index():
+    if not os.path.exists("whoosh_index"):
+        os.mkdir("whoosh_index")
+        return create_in("whoosh_index", schema=get_whoosh_schema())
+    else:
+        return open_dir("whoosh_index")
+    
+
+def create_whoosh_index(offers):
+    writer = get_whoosh_index().writer()
+
+    for o in offers:
+        writer.add_document(offerId=str(o.offerId), university=o.university,
+                        enterprise=o.enterprise, months=o.months,
+                        salary=o.salary, country=o.country,
+                        province=o.province, city=o.city,
+                        description=o.description, immediate=o.immediate)
+    writer.commit()
 
 
 def populate_offers():
     Offer.objects.all().delete()
+    # Degree.objects.all().delete()
 
     username = "dedalo1234"
     password = "dedalo4321"
@@ -40,7 +83,9 @@ def populate_offers():
 
     offers = []
 
-    for offerId in range(252000, 252600):
+    for offerId in range(267700, 268000):
+
+        print(f"==== {offerId} ====")
 
         job_offer_url = f"https://icaro.ual.es/Empresas/Ofertas/Presentacion.aspx?codOferta={offerId}"
         browser.open(job_offer_url)
@@ -64,52 +109,132 @@ def populate_offers():
                 enterprise = None
 
             # INFORMACIÓN GENERAL
-            try:
-                university = general_info.find("dt", string="Universidad").find_next("dd").string
-            except:
-                university = None
+            try: university = general_info.find("dt", string="Universidad").find_next("dd").string
+            except: university = None
 
-            try:
-                months = int(general_info.find("dt", string="Duración").find_next("dd").string.replace(" meses",
-                                                                                                       ""))  # Nota: añadir el caso para cuando ponga años
-            except:
-                months = None
+            try: months = int(general_info.find("dt", string="Duración").find_next("dd").string.replace(" meses", ""))  # Nota: añadir el caso para cuando ponga años
+            except: months = None
 
-            try:
-                salary = int(
-                    general_info.find("dt", string=["Dotación", "Dotación/Mes"]).find_next("dd").string.replace(
-                        " euros", ""))
-            except:
-                salary = None
+            try: salary = int(general_info.find("dt", string=["Dotación", "Dotación/Mes"]).find_next("dd").string.replace(" euros", ""))
+            except: salary = None
 
-            try:
-                country = general_info.find("dt", string="País").find_next("dd").string
-            except:
-                country = None
+            try: country = general_info.find("dt", string="País").find_next("dd").string
+            except: country = None
 
-            try:
-                province = general_info.find("dt", string="Provincia").find_next("dd").string
-            except:
-                province = None
+            try: province = general_info.find("dt", string="Provincia").find_next("dd").string
+            except: province = None
 
-            try:
-                city = general_info.find("dt", string="Localidad").find_next("dd").string
-            except:
-                city = None
+            try: city = general_info.find("dt", string="Localidad").find_next("dd").string
+            except: city = None
 
-            try:
-                description = general_info.find("dt", string=["Tareas a Realizar", "Detalle Actividades Diarias",
+            try: description = general_info.find("dt", string=["Tareas a Realizar", "Detalle Actividades Diarias",
                                                               "Proyecto Formativo"]).find_next("dd").string
+            except: description = None
+            
+            # REQUISITOS
+            degrees = []
+            if requisites_info:
+                try:
+                    estudies = requisites_info.find("dt", string="Estudios").find_next("dd")
+                    estudies_list = estudies.find_all("li")
+
+                    if estudies_list:
+                        degree_set = set(degree.string for degree in estudies_list) # To avoid repeated elements
+                        print(f"DEGREE SET: {degree_set}")
+                        for degree in degree_set:
+                            degrees.append(Degree.objects.get_or_create(name=degree.string)[0])
+                            print(degrees)
+                    else:
+                        degrees.append(Degree.objects.get_or_create(name=degree.string)[0])
+                        print(degrees)
+                except:
+                    pass
+
+                try: immediate = requisites_info.find("dt", string="Incorporación Inmediata").find_next("dd").string == "SI"
+                except: immediate = None
+
+            
+            # #REQUISITOS
+            # if requisites_info is not None:
+            #     titles = requisites_info.find_all("dt")
+
+            #     for title in titles:
+            #         title_str = title.string
+            #         index = titles.index(title)
+
+            #         studies = []
+
+            #         if title_str == "Estudios":
+
+            #             list_st = requisites_info.find_all("dd")[index]
+            #             list_st_ul = list_st.find("ul")
+
+            #             if list_st_ul is None:
+            #                 offer.append(list_st.get_text())
+
+            #             else:
+            #                 studies_degrees = list_st_ul.find_all("li")
+            #                 for degree in studies_degrees:
+            #                     dg = degree
+            #                     studies.append(dg.get_text())
+
+            #                 offer.append(studies)
+
+            #         if title_str == "Incorporación Inmediata":
+
+            #             inmediate = requisites_info.find_all("dd")[index].string
+
+            #             if inmediate == "SI":
+            #                 inmediate_value = True
+
+            #             if inmediate == "NO":
+            #                 inmediate_value = False
+                        
+            #             offer.append(inmediate_value)
+
+            offer = Offer(offerId=offerId, university=university, enterprise=enterprise, months=months, salary=salary,
+                      country=country, province=province, city=city, description=description, immediate=immediate)
+            
+            offer.save()
+
+            offers.append(offer)
+
+            # if degrees_tuple:
+            #     degrees = []
+            #     for degree_tuple in degrees_tuple:
+            #         degrees.append(degree_tuple[0])
+            #         if degree_tuple[1]:
+            #             degree_tuple[0].save()
+            #             print(degree_tuple[0])
+
+                # degrees = [d[0] for d in degrees_tuple]
+
+                # for d in degrees:
+                #     print(d)
+                #     d.save()
+                #     print(d)
+                
+                # offer.degrees.set(degrees)
+            
+            try:
+                offer.degrees.set(degrees)
             except:
-                description = None
+                pass
 
-            offers.append(
-                Offer(offerId=offerId, university=university, enterprise=enterprise, months=months, salary=salary,
-                      country=country, province=province, city=city, description=description))
+            #time.sleep(random.uniform(0.2, 0.8))  # Para evitar posibles baneos
 
-            time.sleep(random.uniform(0.2, 0.8))  # Para evitar posibles baneos
+    #Offer.objects.bulk_create(offers)
+    create_whoosh_index(offers)
 
-    Offer.objects.bulk_create(offers)
+
+def get_keywords(offer_list, num_words):
+    all_descriptions = ""
+    for offer in offer_list:
+        if offer.description:
+            all_descriptions += f" {offer.description}"
+    
+    with get_whoosh_index().searcher() as s:
+        return s.key_terms_from_text("description", all_descriptions, num_words)
 
 
 def extract_csv(request):
@@ -120,6 +245,11 @@ def extract_csv(request):
 def populate_users():
     User.objects.all().delete()
     User.objects.bulk_create([User() for i in range(288)])
+
+    all_degrees = Degree.objects.all()
+    for user in User.objects.all():
+        for degree in random.choices(all_degrees, k=random.randint(1, 2)):
+            user.degrees.add(degree)
 
 
 def populate_user_offer():
@@ -136,32 +266,6 @@ def populate_user_offer():
 
     User_offer.objects.bulk_create(user_offers_list)
 
-
-# def populate_offers():
-# Offer.objects.all().delete()
-# with open(data_path + "bookfeatures.csv", "r", encoding="ISO-8859-1") as csv_file:
-#     csv_reader = csv.reader(csv_file, delimiter=";")
-#     next(csv_reader)
-#     list_to_create = [Offer(bookId=row[0], titulo=row[1], autor=row[2], genero=row[3], idioma=row[4], one=row[5], two=row[6], three=row[7], four=row[8], five=row[9]) for row in csv_reader]
-# Offer.objects.bulk_create(list_to_create)
-#
-#
-# def populate_users():
-#     Usuario.objects.all().delete()
-#     with open(data_path + "ratings.csv", "r", encoding="ISO-8859-1") as csv_file:
-#         csv_reader = csv.reader(csv_file, delimiter=";")
-#         next(csv_reader)
-#         list_to_create = [Usuario(idUsuario=row[1]) for row in csv_reader]
-#     Usuario.objects.bulk_create(list(set(list_to_create)))
-#
-#
-# def populate_ratings():
-#     Puntuacion.objects.all().delete()
-#     with open(data_path + "ratings.csv", "r", encoding="ISO-8859-1") as csv_file:
-#         csv_reader = csv.reader(csv_file, delimiter=";")
-#         next(csv_reader)
-#         list_to_create = [Puntuacion(puntuacion=row[0], usuario=Usuario.objects.get(idUsuario=row[1]), libro=Libro.objects.get(bookId=row[2])) for row in csv_reader]
-#     Puntuacion.objects.bulk_create(list_to_create)
 
 def index(request):
     return render(request, 'offers/index.html')
