@@ -1,14 +1,62 @@
 {% extends 'offers/index.html' %}
 {% block content %}
 
+<head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<style>
+.mainColumns{
+	background-color: rgba(255, 255, 255, 0.6);
+	margin-left: 10%;
+	margin-right: 10%;
+	padding-left: 10%;
+	padding-right: 10%;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	height: auto;
+	size: 100%;
+}
+
+.borderRadius{
+	border-radius: 25px;
+}
+
+</style>
+
+</head>
+
+
+<meta charset="utf-8">
+
+<body class="text-dark">
+<br>
+<h1 class="text-center text-dark ">Ofertas más populares</h1>
 
 {% for offer in offers%}
+	<br>
+	<div class="mainColumns text-dark borderRadius">
+	<h2>{{offer.university}} - {{offer.offerId}}</h2>
+	
         <ul>
-            <li>Salary: {{offer.salary}}</li>
-            <li>Description: {{offer.description}}</li>
-            <li>Likes: {{offer.number}}</li>
+        	<li><h5>Duración: </h5> {{offer.months}} mes(es)</li>
+            <li><h5>Salario:</h5> {{offer.salary}}</li>
+            <li><h5>Descripción:</h5> <p>{{offer.description}}</p></li>
+			<li><h5>Empresa:</h5> <p>{{offer.enterpise}}</p></li>
+			<li><h5>Pais:</h5> <p>{{offer.country}}</p></li>
+			<li><h5>Provincia:</h5> <p>{{offer.province}}</p></li>
+            <li><h5>Likes: </h5> {{offer.number}}</li>
+			<li><h5>Grados:</h5></li>
+				{% for d in offer.degrees.all%}
+					<li><p>{{d.name}}</p></li>
+				{% endfor %}
             <br>
 		</ul>
+	</div>
+	
 {% endfor %}
-
+<br>
+</body>
 {% endblock %}

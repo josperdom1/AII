@@ -1,39 +1,84 @@
 {% load static %}
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <header>
-  	<nav>
-  		<ul>
-			<li><a href='/offers/populate'>Populate</a></li>
-            <li><a href='/offers/popularoffers'>Popular Offers</a></li>
-			<li><a href='/offers/myoffers'>My offers</a></li>
-            <li><a href='/offers/search'>Search offers</a></li>
-            <li><a href='/offers/recom'>Recommend offers</a></li>
+<head>
+
+<!-- Bootstrap -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<!-- Stylesheets -->
+<link rel="stylesheet" type="text/css" href="css/main_stylesheet.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+
+<!-- Viewport -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Charset -->
+<meta charset="utf-8">
+
+<style>
+
+.divElement{
+  padding-top: 15%;
+}
+
+body {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {background-position: 0% 50%;}
+	50% {background-position: 100% 50%;}
+	100% {background-position: 0% 50%;}
+}
+
+
+</style>
+
+
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light bg-dark">
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active"><a class="nav-link text-white"
+				href="http://127.0.0.1:8000/offers/index/">Home<span class="sr-only">(current)</span></a></li>
+			<li class="nav-item"><a class="nav-link text-white" href="http://127.0.0.1:8000/offers/search">Buscar prácticas</a></li>
+			<li class="nav-item"><a class="nav-link text-white" href="http://127.0.0.1:8000/offers/popularoffers">Prácticas más populares</a></li>
+			<li class="nav-item"><a class="nav-link text-white" href="http://127.0.0.1:8000/offers/recom">Recomendar prácticas</a></li>
+			<li class="nav-item"><a class="nav-link text-white" href="http://127.0.0.1:8000/offers/extractcsv">Extraer prácticas en csv</a></li>
+			<li class="nav-item"><a class="nav-link text-white" href="http://127.0.0.1:8000/offers/populate">Escanea más prácticas</a></li>
 		</ul>
-	</nav>
-  </header>
+	</div>
+</nav>
 
-    <!-- Bootstrap 4 -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<body class="hero is-info">
+	{% block content %}
 
-    <!-- Font Awesome -->
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-    <!-- Moment.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js" integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+<div class="container divElement">
+  <h1 class="display-4">Bienvend@ a Dédalo</h1>
+  <p class="lead">Encuentra tus prácticas de empresa</p>
+  <hr class="my-4">
+  <p>Dédalo es una web que te ayuda a encontrar las prácticas de empresas ideales para tí. Y en unos solos clicks.</p>
+</div>
 
-    <!-- Tempus Dominus Bootstrap 4 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
 
-  </head>
-  <body>
-{% block content %}
-{% endblock %}
-  </body>
+	{% endblock %}
+</body>
+
+<footer class="page-footer font-small bg-dark">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
 </html>

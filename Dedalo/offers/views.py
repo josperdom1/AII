@@ -46,23 +46,24 @@ def get_whoosh_schema():
                   province=TEXT(stored=True), city=TEXT(stored=True),
                   description=TEXT(stored=True), immediate=BOOLEAN(stored=True))
 
+
 def get_whoosh_index():
     if not os.path.exists("whoosh_index"):
         os.mkdir("whoosh_index")
         return create_in("whoosh_index", schema=get_whoosh_schema())
     else:
         return open_dir("whoosh_index")
-    
+
 
 def create_whoosh_index(offers):
     writer = get_whoosh_index().writer()
 
     for o in offers:
         writer.add_document(offerId=str(o.offerId), university=o.university,
-                        enterprise=o.enterprise, months=o.months,
-                        salary=o.salary, country=o.country,
-                        province=o.province, city=o.city,
-                        description=o.description, immediate=o.immediate)
+                            enterprise=o.enterprise, months=o.months,
+                            salary=o.salary, country=o.country,
+                            province=o.province, city=o.city,
+                            description=o.description, immediate=o.immediate)
     writer.commit()
 
 
@@ -86,7 +87,7 @@ def populate_offers():
 
     for offerId in range(267700, 268000):
 
-        print(f"==== {offerId} ====")
+        # print(f"==== {offerId} ====")
 
         job_offer_url = f"https://icaro.ual.es/Empresas/Ofertas/Presentacion.aspx?codOferta={offerId}"
         browser.open(job_offer_url)
@@ -110,28 +111,45 @@ def populate_offers():
                 enterprise = None
 
             # INFORMACIÓN GENERAL
-            try: university = general_info.find("dt", string="Universidad").find_next("dd").string
-            except: university = None
+            try:
+                university = general_info.find("dt", string="Universidad").find_next("dd").string
+            except:
+                university = None
 
-            try: months = int(general_info.find("dt", string="Duración").find_next("dd").string.replace(" meses", ""))  # Nota: añadir el caso para cuando ponga años
-            except: months = None
+            try:
+                months = int(general_info.find("dt", string="Duración").find_next("dd").string.replace(" meses",
+                                                                                                       ""))  # Nota: añadir el caso para cuando ponga años
+            except:
+                months = None
 
-            try: salary = int(general_info.find("dt", string=["Dotación", "Dotación/Mes"]).find_next("dd").string.replace(" euros", ""))
-            except: salary = None
+            try:
+                salary = int(
+                    general_info.find("dt", string=["Dotación", "Dotación/Mes"]).find_next("dd").string.replace(
+                        " euros", ""))
+            except:
+                salary = None
 
-            try: country = general_info.find("dt", string="País").find_next("dd").string
-            except: country = None
+            try:
+                country = general_info.find("dt", string="País").find_next("dd").string
+            except:
+                country = None
 
-            try: province = general_info.find("dt", string="Provincia").find_next("dd").string
-            except: province = None
+            try:
+                province = general_info.find("dt", string="Provincia").find_next("dd").string
+            except:
+                province = None
 
-            try: city = general_info.find("dt", string="Localidad").find_next("dd").string
-            except: city = None
+            try:
+                city = general_info.find("dt", string="Localidad").find_next("dd").string
+            except:
+                city = None
 
-            try: description = general_info.find("dt", string=["Tareas a Realizar", "Detalle Actividades Diarias",
+            try:
+                description = general_info.find("dt", string=["Tareas a Realizar", "Detalle Actividades Diarias",
                                                               "Proyecto Formativo"]).find_next("dd").string
-            except: description = None
-            
+            except:
+                description = None
+
             # REQUISITOS
             degrees = []
             if requisites_info:
@@ -140,21 +158,23 @@ def populate_offers():
                     estudies_list = estudies.find_all("li")
 
                     if estudies_list:
-                        degree_set = set(degree.string for degree in estudies_list) # To avoid repeated elements
-                        print(f"DEGREE SET: {degree_set}")
+                        degree_set = set(degree.string for degree in estudies_list)  # To avoid repeated elements
+                        # print(f"DEGREE SET: {degree_set}")
                         for degree in degree_set:
                             degrees.append(Degree.objects.get_or_create(name=degree.string)[0])
-                            print(degrees)
+                            # print(degrees)
                     else:
                         degrees.append(Degree.objects.get_or_create(name=degree.string)[0])
-                        print(degrees)
+                        # print(degrees)
                 except:
                     pass
 
-                try: immediate = requisites_info.find("dt", string="Incorporación Inmediata").find_next("dd").string == "SI"
-                except: immediate = None
+                try:
+                    immediate = requisites_info.find("dt", string="Incorporación Inmediata").find_next(
+                        "dd").string == "SI"
+                except:
+                    immediate = None
 
-            
             # #REQUISITOS
             # if requisites_info is not None:
             #     titles = requisites_info.find_all("dt")
@@ -190,12 +210,12 @@ def populate_offers():
 
             #             if inmediate == "NO":
             #                 inmediate_value = False
-                        
+
             #             offer.append(inmediate_value)
 
             offer = Offer(offerId=offerId, university=university, enterprise=enterprise, months=months, salary=salary,
-                      country=country, province=province, city=city, description=description, immediate=immediate)
-            
+                          country=country, province=province, city=city, description=description, immediate=immediate)
+
             offer.save()
 
             offers.append(offer)
@@ -208,23 +228,23 @@ def populate_offers():
             #             degree_tuple[0].save()
             #             print(degree_tuple[0])
 
-                # degrees = [d[0] for d in degrees_tuple]
+            # degrees = [d[0] for d in degrees_tuple]
 
-                # for d in degrees:
-                #     print(d)
-                #     d.save()
-                #     print(d)
-                
-                # offer.degrees.set(degrees)
-            
+            # for d in degrees:
+            #     print(d)
+            #     d.save()
+            #     print(d)
+
+            # offer.degrees.set(degrees)
+
             try:
                 offer.degrees.set(degrees)
             except:
                 pass
 
-            #time.sleep(random.uniform(0.2, 0.8))  # Para evitar posibles baneos
+            # time.sleep(random.uniform(0.2, 0.8))  # Para evitar posibles baneos
 
-    #Offer.objects.bulk_create(offers)
+    # Offer.objects.bulk_create(offers)
     create_whoosh_index(offers)
 
 
@@ -233,7 +253,7 @@ def get_keywords(offer_list, num_words):
     for offer in offer_list:
         if offer.description:
             all_descriptions += f" {offer.description}"
-    
+
     with get_whoosh_index().searcher() as s:
         return [x[0] for x in s.key_terms_from_text("description", all_descriptions, num_words)]
 
@@ -333,35 +353,49 @@ def Sort(sub_li):
     return sub_li
 
 
-
-def offer_similarity(my_keywords, off2):
+def offer_similarity(my_keywords, my_dislike_keywords, off2):
     si = []
     list = []
     list.append(off2)
 
-    #Get the list of similar keywords
+    # Get the list of similar keywords
     for w in get_keywords(list, 20):
-        if w in my_keywords:
+        if w in my_keywords and len(w) == 3:
             si.append(w)
-
-    #Number of keywords in common
-    return len(si)
+        if w in my_dislike_keywords and len(w) == 3:
+            si.append("bad")
+    try:
+        return len(si) - si.count("bad")
+    except:
+        return 0
+    # Number of keywords in common
 
 
 def recom_offers(user_id):
     my_offers = Offer.objects.filter(user_offer__user_id=user_id, user_offer__like=True).order_by('-salary')
+    my_dislike_offers = Offer.objects.filter(user_offer__user_id=user_id, user_offer__like=False)
     no_rated_offers = Offer.objects.exclude(user_offer__user_id=user_id).order_by('-salary')
     my_keywords = get_keywords(my_offers, 50)
+    my_dislike_keyords = get_keywords(my_dislike_offers, 50)
+
+    degrees = Degree.objects.filter(user__userId=user_id)
 
     res = []
-    #List with non rated offers and its similarity based on keywords coincidence
+    # List with non rated offers and its similarity based on keywords coincidence
     for o in no_rated_offers:
-        res.append([o, offer_similarity(my_keywords, o)])
+        res.append([o, offer_similarity(my_keywords, my_dislike_keyords, o)])
 
-    #Normalization
+
+    # Normalization
     max = Sort(res)[0][1]
-    for e in res:
-        e[1] = e[1]/max
+    if max==0:
+        max = 0.1
 
-    #We order by similarity and return only offers
+    for e in res:
+        e[1] = e[1] / max
+        for d in degrees:
+            if d in list(Degree.objects.filter(offer__offerId=e[0].offerId)):
+                e[1] = 10.
+
+    # We order by similarity and return only offers
     return [x[0] for x in Sort(res)]
